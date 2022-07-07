@@ -1,0 +1,20 @@
+﻿@page "/"
+
+@using BlazorApp6.Http
+@using BlazorApp6.Data
+
+@inject HttpClass HttpClass
+
+
+<PageTitle>Barebone Blazor UI</PageTitle>
+
+<h1>Barebone Blazor UI connecting to WebAPI</h1>
+
+@if (SampleData != null)
+{
+<ul>
+@foreach (SampleDTO s in SampleData) {
+    <li>@s.name - @s.city</li>
+}
+</ul>
+}
