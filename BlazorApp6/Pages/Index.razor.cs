@@ -11,7 +11,6 @@ namespace BlazorApp6.Pages
 
         protected override async Task OnInitializedAsync()
         {
-
             TupleDTO t = await HttpClass.GetAsync<TupleDTO>("https://www.yogigrantz.com/api/webapidemo", null);
 
             if (t.Item5 == null)
