@@ -5,6 +5,12 @@ namespace BlazorApp6.Http;
 
 public class HttpClass
 {
+    private readonly IHttpClientFactory _httpClientFactory;
+
+    public HttpClass(IHttpClientFactory httpClientFactory)
+    {
+        this._httpClientFactory = httpClientFactory;
+    }
     public async Task<T> GetAsync<T>(string url, string querystring)
     {
         string urlq;
@@ -13,7 +19,7 @@ public class HttpClass
         else
             urlq = $"{url}?{querystring}";
 
-        using (HttpClient httpClient = new HttpClient())
+        using (HttpClient httpClient = _httpClientFactory.CreateClient())
         {
             HttpResponseMessage response = await httpClient.GetAsync(urlq);
             if (response.IsSuccessStatusCode)
@@ -31,7 +37,7 @@ public class HttpClass
 
     public async Task<T> PostAsync<T>(string url, string jsonPayload, string basicAuthToken)
     {
-        using (HttpClient httpClient = new HttpClient())
+        using (HttpClient httpClient = _httpClientFactory.CreateClient())
         {
             httpClient.DefaultRequestHeaders.Add("Authorization", $"Basic {basicAuthToken}" );
 
